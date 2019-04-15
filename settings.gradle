@@ -1,0 +1,4 @@
+include ':ProjectName'
+include ':native:KotlinAndroid:app'
+
+enableFeaturePreview('GRADLE_METADATA')

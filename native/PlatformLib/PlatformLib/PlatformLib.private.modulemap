@@ -1,0 +1,3 @@
+module PlatformLib_Private {
+    export *
+}

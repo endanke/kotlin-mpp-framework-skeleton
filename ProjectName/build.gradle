@@ -1,0 +1,127 @@
+apply plugin: "kotlin-multiplatform"
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android-extensions'
+
+final def customFrameworksDir = new File("${projectDir}/../native/PlatformLib").absolutePath
+final def customFramework = "PlatformLib"
+final def externalRepo = new File("${projectDir}/../../sdk-external")
+final def targetName = project.findProperty("IOS_TARGET") ?: 'iosArm64'
+
+// Android library configuration
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        minSdkVersion 18
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+    sourceSets {
+        main {
+            manifest.srcFile 'src/androidMain/AndroidManifest.xml'
+            java.srcDirs = ['src/androidMain/java']
+        }
+    }
+}
+
+// Kotlin multiplatform configuration
+kotlin {
+    targets {
+        final def iOSTarget = targetName == 'iosArm64' ? presets.iosArm64 : presets.iosX64
+
+        fromPreset(iOSTarget, 'ios') {
+            binaries {
+                framework {
+                    embedBitcode("disable")
+                }
+            }
+            compilations.main {
+                cinterops {
+                    PlatformLib {
+                        packageName 'com.platformlib'
+                        includeDirs "${customFrameworksDir}"
+                    }
+                }
+            }
+        }
+
+        fromPreset(presets.android, 'android')
+    }
+
+    sourceSets {
+        commonMain.dependencies {
+            api 'org.jetbrains.kotlin:kotlin-stdlib-common'
+        }
+
+        androidMain.dependencies {
+            api 'org.jetbrains.kotlin:kotlin-stdlib'
+        }
+
+        iosMain.dependencies {
+            api 'org.jetbrains.kotlin:kotlin-stdlib-common'
+        }
+    }
+
+}
+
+// workaround for https://youtrack.jetbrains.com/issue/KT-27170
+configurations {
+    compileClasspath
+}
+
+task packForXCode(type: Copy) {
+    final File frameworkDir = new File(buildDir, "xcode-frameworks")
+    final String mode = project.findProperty("XCODE_CONFIGURATION")?.toUpperCase() ?: 'DEBUG'
+
+    inputs.property "mode", mode
+    dependsOn kotlin.targets.ios.binaries.getFramework(mode).linkTask
+
+    into frameworkDir
+    into("/${project.name}.framework"){
+        // One copy with the project name is needed for the lipo output
+        // Doesn't matter which architecture
+        from { kotlin.targets.ios.binaries.getFramework(mode).outputFile }
+    }
+
+    // Copy the generated framework with the name of the target architecture
+    into("/${project.name}_${targetName}.framework"){
+        from { kotlin.targets.ios.binaries.getFramework(mode).outputFile }
+    }
+
+    // Copy the custom framework inside the generated framework outputs
+    into("/${project.name}.framework/Frameworks/${customFramework}.framework") {
+        from "${customFrameworksDir}/${customFramework}.framework"
+    }
+    into("/${project.name}_${targetName}.framework/Frameworks/${customFramework}.framework") {
+        from "${customFrameworksDir}/${customFramework}.framework"
+    }
+
+    doLast {
+        // This delete action removes the headers from the custom folder to hide the implementation.
+        delete "${frameworkDir}/${project.name}.framework/Frameworks/${customFramework}.framework/Headers"
+        delete "${frameworkDir}/${project.name}_${targetName}.framework/Frameworks/${customFramework}.framework/Headers"
+        new File(frameworkDir, 'gradlew').with {
+            text = "#!/bin/bash\nexport 'JAVA_HOME=${System.getProperty("java.home")}'\ncd '${rootProject.rootDir}'\n./gradlew \$@\n"
+            setExecutable(true)
+        }
+    }
+}
+
+tasks.build.dependsOn packForXCode
+tasks.linkReleaseFrameworkIos.finalizedBy packForXCode
+tasks.linkDebugFrameworkIos.finalizedBy packForXCode
+
+task generateDefFiles(type: Exec) {
+    doFirst {
+        println("Executing myScript")
+        commandLine 'sh','./generateDef.sh'
+    }
+}
+
+tasks.build.dependsOn generateDefFiles
+tasks.build.mustRunAfter generateDefFiles

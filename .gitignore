@@ -1,0 +1,9 @@
+ProjectName/build
+ProjectName/src/nativeInterop/cinterop/PlatformLib.def
+
+native/KotlinIOS/PlatformLib.framework
+
+build
+.idea
+.gradle
+**/*.iml

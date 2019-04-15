@@ -1,0 +1,11 @@
+framework module PlatformLib {
+  umbrella header "PlatformLib.h"
+
+  export *
+  module * { export * }
+}
+
+module PlatformLib.Swift {
+    header "PlatformLib-Swift.h"
+    requires objc
+}

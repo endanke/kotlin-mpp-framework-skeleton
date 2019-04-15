@@ -1,0 +1,49 @@
+@startuml
+
+frame "Development configuration" {
+    frame "External iOS sources" {
+        [PlatformLib]
+    }
+    
+    frame "iOS target folder" {
+        [IOSSpecific]
+        [SampleDate] as IOSDATE
+    }
+
+    frame "Android target folder" {
+        [SampleModule]
+        [AndroidSpecific]
+        [SampleDate] as DROIDATE
+    }
+        
+    frame "Common sources folder" {
+        [SampleDate] as COMMONDATE
+        [FrameworkSample]
+    }
+}
+
+frame "Host applications" {
+    [iOS library] as LIBIOS
+    [Android library] as LIBDROID
+
+    [Android application] as DROIDAPP
+    [iOS application] as IOSAPP
+}
+
+
+' Component relations
+[PlatformLib] <--> [IOSSpecific]
+[SampleModule] <-left-> [AndroidSpecific]
+IOSDATE <--> COMMONDATE
+DROIDATE <--> COMMONDATE
+COMMONDATE <--> [FrameworkSample]
+
+[IOSSpecific] <--> LIBIOS
+[AndroidSpecific] <--> LIBDROID
+[FrameworkSample] <--> LIBDROID
+[FrameworkSample] <--> LIBIOS
+
+LIBIOS <..> IOSAPP
+LIBDROID <..> DROIDAPP
+
+@enduml
