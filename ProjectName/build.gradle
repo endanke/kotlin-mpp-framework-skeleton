@@ -122,6 +122,8 @@ task clearClasses(type: Delete) {
 
 tasks.linkReleaseFrameworkIos.dependsOn clearClasses
 tasks.linkReleaseFrameworkIos.mustRunAfter clearClasses
+tasks.linkDebugFrameworkIos.dependsOn clearClasses
+tasks.linkDebugFrameworkIos.mustRunAfter clearClasses
 
 // Def file for the PlatformLib cinterop process
 
