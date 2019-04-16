@@ -125,3 +125,21 @@ task generateDefFiles(type: Exec) {
 
 tasks.build.dependsOn generateDefFiles
 tasks.build.mustRunAfter generateDefFiles
+
+
+// Helper task to copy output into the sample project
+task copyArtifacts() {
+    doLast {
+        copy {
+            from "${projectDir}/build/outputs/aar/${project.name}-release.aar"
+            into "${projectDir}/outputs"
+            rename ("${project.name}-release.aar", "${project.name}.aar")
+        }
+        copy {
+            from "${projectDir}/build/xcode-frameworks/${project.name}.framework"
+            into "${projectDir}/outputs/${project.name}.framework"
+        }
+    }
+}
+
+tasks.build.finalizedBy copyArtifacts

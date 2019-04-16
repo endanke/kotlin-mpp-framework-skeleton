@@ -1,4 +1,5 @@
 ProjectName/build
+ProjectName/outputs
 ProjectName/src/nativeInterop/cinterop/PlatformLib.def
 
 native/KotlinIOS/PlatformLib.framework
