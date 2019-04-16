@@ -4,7 +4,6 @@ apply plugin: 'kotlin-android-extensions'
 
 final def customFrameworksDir = new File("${projectDir}/../native/PlatformLib").absolutePath
 final def customFramework = "PlatformLib"
-final def externalRepo = new File("${projectDir}/../../sdk-external")
 final def targetName = project.findProperty("IOS_TARGET") ?: 'iosArm64'
 
 // Android library configuration
@@ -43,6 +42,7 @@ kotlin {
             compilations.main {
                 cinterops {
                     PlatformLib {
+                        defFile project.file("PlatformLib.def")
                         packageName 'com.platformlib'
                         includeDirs "${customFrameworksDir}"
                     }
@@ -116,6 +116,15 @@ tasks.build.dependsOn packForXCode
 tasks.linkReleaseFrameworkIos.finalizedBy packForXCode
 tasks.linkDebugFrameworkIos.finalizedBy packForXCode
 
+task clearClasses(type: Delete) {
+    delete "${projectDir}/build/classes/kotlin/ios"
+}
+
+tasks.linkReleaseFrameworkIos.dependsOn clearClasses
+tasks.linkReleaseFrameworkIos.mustRunAfter clearClasses
+
+// Def file for the PlatformLib cinterop process
+
 task generateDefFiles(type: Exec) {
     doFirst {
         println("Executing myScript")
@@ -123,11 +132,13 @@ task generateDefFiles(type: Exec) {
     }
 }
 
+tasks.linkReleaseFrameworkIos.dependsOn generateDefFiles
+tasks.linkReleaseFrameworkIos.mustRunAfter generateDefFiles
 tasks.build.dependsOn generateDefFiles
 tasks.build.mustRunAfter generateDefFiles
 
+// Copy outputs to the same directory
 
-// Helper task to copy output into the sample project
 task copyArtifacts() {
     doLast {
         copy {

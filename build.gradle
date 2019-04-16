@@ -26,3 +26,40 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+// Fat framework generation
+
+task runBuildIosArm64(type: GradleBuild) {
+    buildFile = 'ProjectName/build.gradle'
+    tasks = ['linkReleaseFrameworkIos']
+    startParameter.setProjectProperties([
+            'IOS_TARGET': 'iosArm64',
+            'XCODE_CONFIGURATION': 'RELEASE'
+    ])
+}
+
+task runBuildIosX64(type: GradleBuild) {
+    buildFile = 'ProjectName/build.gradle'
+    tasks = ['linkReleaseFrameworkIos']
+    startParameter.setProjectProperties([
+            'IOS_TARGET': 'iosX64',
+            'XCODE_CONFIGURATION': 'RELEASE'
+    ])
+}
+
+task cleanFrameworksFolder(type: Delete) {
+    delete 'ProjectName/build/xcode-frameworks'
+}
+
+task combineIosArchitectures(type: Exec) {
+    executable 'lipo'
+    args = [
+            '-create',
+            '-arch',  'arm64', 'ProjectName/build/xcode-frameworks/ProjectName_iosArm64.framework/ProjectName',
+            '-arch', 'x86_64', 'ProjectName/build/xcode-frameworks/ProjectName_iosX64.framework/ProjectName',
+            '-output', 'ProjectName/build/xcode-frameworks/ProjectName.framework/ProjectName',
+    ]
+}
+combineIosArchitectures.dependsOn cleanFrameworksFolder
+combineIosArchitectures.dependsOn runBuildIosArm64
+combineIosArchitectures.dependsOn runBuildIosX64

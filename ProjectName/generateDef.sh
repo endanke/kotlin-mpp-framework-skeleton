@@ -13,4 +13,4 @@ headerFilter = **
 libraryPaths = $DIR -framework PlatformLib
 compilerOpts = -F$DIR -fmodules -framework PlatformLib
 linkerOpts = -F$DIR
-" > ./src/nativeInterop/cinterop/PlatformLib.def
+" > ./PlatformLib.def
