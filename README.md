@@ -33,6 +33,10 @@ After a successful build, the classes in `PlatformLib` can be referenced in the 
 
 The script of the `ProjectName` framework building process includes custom scripts to generate a fat binary in the output. It also moves the `PlatformLib` framework inside the `ProjectName` framework, which will act as an umbrella. This makes the delivery process easier, as you only have to share the main framework.
 
+## Release build
+
+To generate a release build for iOS, run the `combineIosArchitectures` Gradle task in the root project. For Android, use the `assembleRelease` task in the ProjectName target.
+
 ## Sample classes
 
 This diagram displays the connections between the sample classes and the generated outputs. 
