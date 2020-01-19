@@ -182,7 +182,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\ncd $SRCROOT/../../ProjectName/build/xcode-frameworks\n./gradlew :ProjectName:linkDebugFrameworkIos  -PXCODE_CONFIGURATION=${CONFIGURATION}\n";
+			shellScript = "# FIXME: Test configuration before use. Until then use IDEA to build the selected architecture.\n#cd $SRCROOT/../../ProjectName/build/xcode-frameworks\n#./gradlew :ProjectName:linkDebugFrameworkIos  -PXCODE_CONFIGURATION=${CONFIGURATION}\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

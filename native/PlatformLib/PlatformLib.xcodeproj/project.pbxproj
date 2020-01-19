@@ -10,6 +10,7 @@
 		30713C2D21E75A960090419F /* Testing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30713C2C21E75A960090419F /* Testing.swift */; };
 		308AB43421E4D781007E5ED1 /* PlatformLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 308AB43321E4D781007E5ED1 /* PlatformLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		308AB47421E735BF007E5ED1 /* PlatformLib.m in Sources */ = {isa = PBXBuildFile; fileRef = 308AB47321E735BF007E5ED1 /* PlatformLib.m */; };
+		309C37E323D4F58B0068E072 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 309C37E223D4F58B0068E072 /* main.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		308AB40921E485CB007E5ED1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		308AB43321E4D781007E5ED1 /* PlatformLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlatformLib.h; sourceTree = "<group>"; };
 		308AB47321E735BF007E5ED1 /* PlatformLib.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlatformLib.m; sourceTree = "<group>"; };
+		309C37E223D4F58B0068E072 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		30D3233B221D64E5000AF313 /* PlatformLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PlatformLib.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -46,6 +48,7 @@
 				308AB43321E4D781007E5ED1 /* PlatformLib.h */,
 				308AB47321E735BF007E5ED1 /* PlatformLib.m */,
 				30713C2C21E75A960090419F /* Testing.swift */,
+				309C37E223D4F58B0068E072 /* main.c */,
 				308AB40921E485CB007E5ED1 /* Info.plist */,
 				307A22EA21E775C7004D960F /* PlatformLib.private.modulemap */,
 			);
@@ -153,6 +156,7 @@
 			files = (
 				308AB47421E735BF007E5ED1 /* PlatformLib.m in Sources */,
 				30713C2D21E75A960090419F /* Testing.swift in Sources */,
+				309C37E323D4F58B0068E072 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,7 +172,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = RCHSJ9829S;
+				DEVELOPMENT_TEAM = BV2J795K69;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -205,7 +209,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = RCHSJ9829S;
+				DEVELOPMENT_TEAM = BV2J795K69;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";

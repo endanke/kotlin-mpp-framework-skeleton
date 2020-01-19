@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc @objcMembers public class Testing: NSObject {
+@objc(Testing) @objcMembers public class Testing: NSObject {
     
     public func test() -> String {
         return "Hello from Swift"
