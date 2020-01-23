@@ -6,6 +6,8 @@ This project includes a sample configuration for multi-platform library/framewor
 
 During 2019 I have made my master's thesis about the development of a software development kit, which was done in collaboration with a business case provider company. Their goal was to separate the business logic from an existing Android and iOS application in the form of a cross-platform SDK. Kotlin/Native allowed us to reuse parts of the Android implementation on iOS, even though multiplatform programming is still an experimental feature at this point. This repository demonstrates some of the configurations that was required during the development of the SDK.
 
+For full context, feel free to download my thesis from the following link: https://aaltodoc.aalto.fi/handle/123456789/38944
+
 ## Overview
 
 #### Source location
