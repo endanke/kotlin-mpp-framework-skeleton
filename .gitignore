@@ -10,3 +10,11 @@ build
 .idea
 .gradle
 **/*.iml
+
+*.apk
+*.ap_
+*.dex
+*.class
+bin/
+gen/
+local.properties
