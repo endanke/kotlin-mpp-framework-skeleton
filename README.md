@@ -41,7 +41,7 @@ The script of the `ProjectName` framework building process includes custom scrip
 
 ## Release build
 
-To generate a release build for iOS, run the `combineIosArchitectures` Gradle task in the root project. For Android, use the `assembleRelease` task in the ProjectName target.
+To generate a release build for iOS, run the `releaseFatFramework` Gradle task. For Android, use the `assembleRelease` task in the ProjectName target.
 
 ## Sample classes
 
