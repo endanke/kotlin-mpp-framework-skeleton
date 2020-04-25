@@ -1,0 +1,6 @@
+package = com.platformlib
+depends = Foundation
+language = Objective-C
+headers = PlatformLib.h PlatformLib-Swift.h
+linkerOpts = -framework PlatformLib
+

@@ -8,6 +8,10 @@ During 2019 I have made my master's thesis about the development of a software d
 
 For full context, feel free to download my thesis from the following link: https://aaltodoc.aalto.fi/handle/123456789/38944
 
+## Updates
+
+- 2020 April: Upgraded to Kotlin version 1.3.60. Simplified configuration example.
+
 ## Overview
 
 #### Source location
@@ -48,6 +52,6 @@ This diagram displays the connections between the sample classes and the generat
 ## Additional notes
 
 - The API of the kotlin-multiplatform plugin changes frequently, so this sample might be already outdated, as I was working on it a couple months ago. I'll try to update it when I can, but feel free to write me any questions related to the configuration.
-- The fat framework generation process of the kotlin-multiplatform output will be easier in the future releases. See: https://github.com/JetBrains/kotlin-native/issues/2574#issuecomment-480264335
-- Currently the .def file for the `PlatformLib` interoperability is generated with a script to include the correct folder paths. This is probably not needed anymore, but I haven't tested a new configuration yet.
-- On iOS, the simulator architecture probably needs to be removed from the generated frameworks before submitting it to the App Store. This wasn't tested, but a similar solution could work: https://medium.com/@crafttang/how-to-upload-an-app-with-universal-framework-to-appstore-49e50a461109
+- Update: Since 1.3.30 fat framework generation tasks are available. ~~The fat framework generation process of the kotlin-multiplatform output will be easier in the future releases. See: https://github.com/JetBrains/kotlin-native/issues/2574#issuecomment-480264335~~
+- Update: Fixed configuration example, no need for generated .def file anymore.~~Currently the .def file for the `PlatformLib` interoperability is generated with a script to include the correct folder paths. This is probably not needed anymore, but I haven't tested a new configuration yet.~~
+- On iOS, the simulator architecture probably needs to be removed from the generated fat frameworks before submitting it to the App Store. This wasn't tested, but a similar solution could work: https://medium.com/@crafttang/how-to-upload-an-app-with-universal-framework-to-appstore-49e50a461109
