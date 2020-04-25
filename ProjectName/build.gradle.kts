@@ -1,6 +1,4 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.tasks.FatFrameworkTask
-import org.jetbrains.kotlin.gradle.tasks.*
 
 val ideaActive = System.getProperty("idea.active") == "true"
 
